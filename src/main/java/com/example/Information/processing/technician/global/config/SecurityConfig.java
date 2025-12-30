@@ -21,6 +21,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/actuator/health").permitAll()
                         .requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**","/error/**").permitAll() // 메인 및 정적 리소스 허용
                         .requestMatchers("/user/signup", "/user/login").permitAll() // 회원가입, 로그인 페이지 접근 허용
                         .anyRequest().authenticated() // 그 외 요청은 인증 필요
