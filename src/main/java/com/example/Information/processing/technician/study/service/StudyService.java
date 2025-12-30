@@ -42,4 +42,22 @@ public class StudyService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 공부 기록이 없습니다. id="+id));
         return StudyNoteResponse.from(note);
     }
+
+    // 수정 (Dirty ChecKing 활용)
+    @Transactional
+    public void updateNote(Long id, StudyNoteRequest request) {
+        StudyNote note = studyNoteRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 공부 기록이 없습니다. id=" + id));
+
+        note.update(request.title(), request.content(), request.category());
+    }
+
+    // 삭제
+    @Transactional
+    public void deleteNote(Long id) {
+        StudyNote note = studyNoteRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 공부 기록이 없습니다. id=" + id));
+
+        studyNoteRepository.delete(note);
+    }
 }

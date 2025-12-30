@@ -31,4 +31,11 @@ public class StudyNote extends BaseTimeEntity {
         this.content = content;
         this.category = category;
     }
+
+    // 수정 메서드
+    public void update(String title, String content, String category) {
+        this.title = title;
+        this.content = content;
+        this.category = category;
+    }
 }

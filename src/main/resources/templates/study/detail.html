@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>공부 기록 상세</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <style>
+    .detail-container {
+        max-width: 1200px;
+        margin: 100px auto;
+        padding: 40px;
+        background-color: var(--card-bg);
+        border-radius: 15px;
+        border: 1px solid #333;
+    }
+    .meta-info {
+        color: #888;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #333;
+        display: flex;
+        justify-content: space-between;
+    }
+    .content-area {
+        min-height: 300px;
+        white-space: pre-wrap;
+        line-height: 1.8;
+        color: #ddd;
+        font-size: 1.1rem;
+    }
+    .btn-group {
+        margin-top: 30px;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+    }
+    .btn {
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+    }
+    .btn-edit { background-color: #444; color: #fff; }
+    .btn-delete { background-color: #ff4444; color: #fff; }
+    .btn-list { background-color: var(--accent-color); color: #000; }
+  </style>
+</head>
+<body>
+<div class="detail-container">
+  <h2 th:text="${note.title}" style="font-size: 2rem; margin-bottom: 10px;">제목</h2>
+
+  <div class="meta-info">
+    <div>
+      <span style="color: var(--accent-color);" th:text="${note.category}">카테고리</span>
+      <span style="margin: 0 10px;">|</span>
+      <span th:text="${#temporals.format(note.createdAt, 'yyyy-MM-dd HH:mm')}">날짜</span>
+    </div>
+  </div>
+
+  <div class="content-area" th:text="${note.content}">
+    내용이 들어갑니다.
+  </div>
+
+  <div class="btn-group">
+    <a th:href="@{/study/list}" class="btn btn-list">목록으로</a>
+
+    <!-- 수정 버튼 -->
+    <a th:href="@{/study/{id}/edit(id=${note.id})}" class="btn btn-edit">수정</a>
+
+    <!-- 삭제 버튼 (POST 방식 필수) -->
+    <form th:action="@{/study/{id}/delete(id=${note.id})}" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+      <button type="submit" class="btn btn-delete">삭제</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

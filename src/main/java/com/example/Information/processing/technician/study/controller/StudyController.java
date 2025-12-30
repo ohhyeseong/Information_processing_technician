@@ -56,4 +56,32 @@ public class StudyController {
         model.addAttribute("note", note);
         return "study/detail"; // 파일이 없어도 예외가 먼저 터지므로 테스트 가능
     }
+
+    // 수정 페이지 이동
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable Long id, Model model) {
+        StudyNoteResponse note = studyService.findNote(id);
+        // 기존 데이터를 DTO에 담아서 뷰로 전달 (화면에 미리 채워두기 위함)
+        model.addAttribute("studyNoteRequest", new StudyNoteRequest(note.title(), note.content(), note.category()));
+        model.addAttribute("id", id); // 수정 URL에 필요해서 ID도 따로 넘김
+        return "study/edit";
+    }
+
+    // 수정 처리
+    @PostMapping("/{id}/edit")
+    public String edit(@PathVariable Long id, @Valid @ModelAttribute StudyNoteRequest request, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("id", id); // 에러 발생 시 ID 유지 필요
+            return "study/edit";
+        }
+        studyService.updateNote(id, request);
+        return "redirect:/study/" + id; // 수정 후 상세 페이지로 이동
+    }
+
+    // 삭제 처리
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable Long id) {
+        studyService.deleteNote(id);
+        return "redirect:/study/list";
+    }
 }
