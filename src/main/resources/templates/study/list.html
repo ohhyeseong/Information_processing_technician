@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>공부 기록 목록</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        /* 목록 페이지 전용 스타일 */
+        .list-container {
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .btn-write {
+            background-color: var(--accent-color);
+            color: #000;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+        .btn-write:hover {
+            opacity: 0.8;
+        }
+        .note-card {
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+        .note-meta {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .note-title {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .note-content {
+            color: #ccc;
+            white-space: pre-wrap; /* 줄바꿈 유지 */
+        }
+    </style>
+</head>
+<body>
+<div class="list-container">
+    <div class="header">
+        <h2>📚 나의 공부 기록</h2>
+        <div>
+            <span sec:authentication="name" style="color: #fff; margin-right: 10px;"></span>
+            <form th:action="@{/user/logout}" method="post" style="display: inline;">
+                <button type="submit" style="background: none; border: none; color: #aaa; cursor: pointer; margin-right: 15px;">로그아웃</button>
+            </form>
+            <a th:href="@{/study/write}" class="btn-write">글쓰기</a>
+        </div>
+    </div>
+
+    <!-- 목록이 비어있을 때 -->
+    <div th:if="${notes.isEmpty()}" style="text-align: center; color: #666; margin-top: 50px;">
+        <p>아직 작성된 공부 기록이 없습니다.</p>
+    </div>
+
+    <!-- 목록 반복 출력 -->
+    <div th:each="note : ${notes}" class="note-card">
+        <div class="note-meta">
+            <span th:text="${note.category}">카테고리</span> |
+            <span th:text="${#temporals.format(note.createdAt, 'yyyy-MM-dd HH:mm')}">날짜</span>
+        </div>
+        <h3 class="note-title" th:text="${note.title}">제목</h3>
+        <p class="note-content" th:text="${note.content}">내용</p>
+    </div>
+
+    <div style="margin-top: 30px; text-align: center;">
+        <a th:href="@{/}" style="color: #666; text-decoration: none;">← 메인으로 돌아가기</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정보처리기능사 실기 - Deep Dive</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- [추가] 상단 네비게이션 -->
+<nav style="position: fixed; top: 0; width: 100%; padding: 20px; z-index: 100; display: flex; justify-content: flex-end;">
+
+    <!-- 로그인 안 했을 때 보임 -->
+    <div sec:authorize="isAnonymous()">
+        <a th:href="@{/user/login}" style="color: #fff; text-decoration: none; margin-right: 20px;">로그인</a>
+        <a th:href="@{/user/signup}" style="color: var(--accent-color); text-decoration: none;">회원가입</a>
+    </div>
+
+    <!-- 로그인 했을 때 보임 -->
+    <div sec:authorize="isAuthenticated()">
+        <span sec:authentication="name" style="color: #fff; margin-right: 10px;">사용자님</span>
+
+        <!-- 로그아웃은 POST로 보내야 안전함 -->
+        <form th:action="@{/user/logout}" method="post" style="display: inline;">
+            <button type="submit" style="background: none; border: none; color: #aaa; cursor: pointer; font-size: 1rem;">로그아웃</button>
+        </form>
+    </div>
+</nav>
+
+<!-- 인트로 섹션: 텍스트 줌인 애니메이션 -->
+<section class="intro-section">
+    <h1 class="intro-text">정보처리기능사<br>합격</h1>
+
+    <div class="scroll-indicator">
+        <p>Scroll</p>
+        <div class="arrow">↓</div>
+    </div>
+</section>
+
+<!-- 콘텐츠 섹션: 공부 목차 -->
+<section class="content-section">
+    <div class="container">
+        <h2>학습 목차</h2>
+        <div class="card-grid">
+            <!-- 예시 카드들 -->
+            <div class="card">
+                <h3>1. 응용 SW 기초 기술 활용</h3>
+                <p>운영체제, 네트워크, 데이터베이스 기초</p>
+            </div>
+            <div class="card">
+                <h3>2. 프로그래밍 언어 활용</h3>
+                <p>C언어, Java, Python 문법 및 알고리즘</p>
+            </div>
+            <div class="card">
+                <h3>3. 애플리케이션 테스트 수행</h3>
+                <p>테스트 케이스 작성, 결함 관리</p>
+            </div>
+            <div class="card">
+                <h3>4. SQL 활용</h3>
+                <p>DDL, DML, DCL 실습</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- GSAP & ScrollTrigger CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<!-- 커스텀 스크립트 -->
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

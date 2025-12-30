@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>오류 발생</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .error-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .error-code {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+        .error-message {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 40px;
+        }
+        .btn-home {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .btn-home:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="error-container">
+    <h1 class="error-code">⚠️ Oops!</h1>
+
+    <!-- ControllerAdvice에서 넘겨준 ErrorResponse 객체 사용 -->
+    <div class="error-code" th:text="${error.errorCode}">ERROR_CODE</div>
+    <p class="error-message" th:text="${error.errorMessage}">에러 메시지가 여기에 표시됩니다.</p>
+
+    <a th:href="@{/}" class="btn-home">메인으로 돌아가기</a>
+</div>
+</body>
+</html>

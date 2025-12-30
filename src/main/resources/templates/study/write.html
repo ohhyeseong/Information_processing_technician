@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>공부 기록 작성</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <style>
+    .write-container {
+        max-width: 600px;
+        margin: 100px auto;
+        padding: 30px;
+        background-color: var(--card-bg);
+        border-radius: 15px;
+        border: 1px solid #333;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #aaa;
+    }
+    input[type="text"], textarea, select {
+        width: 100%;
+        padding: 12px;
+        background-color: #0a0a0a;
+        border: 1px solid #444;
+        color: #fff;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+    textarea {
+        height: 200px;
+        resize: vertical;
+    }
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        background-color: var(--accent-color);
+        color: #000;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: opacity 0.3s;
+    }
+    .btn-submit:hover {
+        opacity: 0.8;
+    }
+    .error-msg {
+        color: #ff4444;
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+<div class="write-container">
+  <h2 style="text-align: center; margin-bottom: 30px;">📝 오늘 공부한 내용</h2>
+
+  <form th:action="@{/study/write}" th:object="${studyNoteRequest}" method="post">
+
+    <div class="form-group">
+      <label for="category">과목</label>
+      <select th:field="*{category}" id="category">
+        <option value="">선택하세요</option>
+        <option value="운영체제">운영체제</option>
+        <option value="네트워크">네트워크</option>
+        <option value="데이터베이스">데이터베이스</option>
+        <option value="프로그래밍">프로그래밍</option>
+        <option value="기타">기타</option>
+      </select>
+      <div class="error-msg" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="title">주제 (제목)</label>
+      <input type="text" th:field="*{title}" id="title" placeholder="예: OSI 7계층 정리">
+      <div class="error-msg" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="content">내용</label>
+      <textarea th:field="*{content}" id="content" placeholder="공부한 내용을 자유롭게 적어보세요."></textarea>
+      <div class="error-msg" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+    </div>
+
+    <button type="submit" class="btn-submit">저장하기</button>
+    <div style="margin-top: 15px; text-align: center;">
+      <a th:href="@{/study/list}" style="color: #666; text-decoration: none;">취소</a>
+    </div>
+  </form>
+</div>
+</body>
+</html>
