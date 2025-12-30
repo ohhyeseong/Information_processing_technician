@@ -6,10 +6,10 @@ spring:
     name: demo
 
   datasource:
-    url: jdbc:mysql://${MYSQLHOST:localhost}:${MYSQLPORT:3306}/${MYSQLDATABASE:study}
+    url: jdbc:mysql://centerbeam.proxy.rlwy.net:33573/railway
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${MYSQL_USER:root}
-    password: ${MYSQL_PASSWORD:1234}
+    username: root
+    password: iXjXleXLKQJELyokHCmVRqDTGVBaFGvo
     hikari:
       connection-timeout: 30000 # 연결을 얻기 위해 30초까지 기다림
       initialization-fail-timeout: 60000
