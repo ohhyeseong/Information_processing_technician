@@ -6,10 +6,10 @@ spring:
     name: demo
 
   datasource:
-    url: ${mysql://root:iXjXleXLKQJELyokHCmVRqDTGVBaFGvo@centerbeam.proxy.rlwy.net:33573/railway}
+    url: jdbc:mysql://${MYSQLHOST:localhost}:${MYSQLPORT:3306}/${MYSQLDATABASE:study}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 1234
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:1234}
 
   jpa:
     hibernate:
