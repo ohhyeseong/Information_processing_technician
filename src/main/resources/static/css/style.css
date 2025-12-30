@@ -142,3 +142,45 @@ a.card {
         transform: translateY(-5px);
     }
 }
+
+/* =============================================== */
+/* 반응형 디자인 (모바일 화면) @media (max-width: 768px) */
+/* =============================================== */
+@media (max-width: 768px) {
+
+    /* 1. 메인 타이틀 글씨 크기 조정 */
+    .intro-text {
+        /* 화면 너비에 비례하는 vw 단위로 변경 */
+        font-size: 15vw;
+        line-height: 1.2;
+    }
+
+    /* 2. 각 섹션의 위아래 여백 줄이기 */
+    .content-section,
+    .recent-section {
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+
+    /* 3. 섹션 제목(h2) 크기 줄이기 */
+    .content-section h2,
+    .recent-section h2 {
+        font-size: 2.2rem;
+        margin-bottom: 40px;
+    }
+
+    /* 4. 카드 사이 간격 줄이기 */
+    .card-grid {
+        gap: 20px;
+    }
+
+    /* 5. 스크롤 유도 문구 위치 조정 */
+    .scroll-indicator {
+        bottom: 30px;
+    }
+
+    /* 6. 상단 네비게이션 여백 줄이기 */
+    nav {
+        padding: 15px;
+    }
+}
