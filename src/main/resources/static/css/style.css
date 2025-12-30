@@ -27,6 +27,7 @@ body {
     align-items: center;
     position: relative;
     z-index: 10;
+    overflow: hidden;
 }
 
 .intro-text {
@@ -60,6 +61,12 @@ body {
     margin-bottom: 50px;
     text-align: center;
     color: var(--accent-color);
+}
+
+a.card {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 글자색 상속 */
+    cursor: pointer;
 }
 
 .card-grid {

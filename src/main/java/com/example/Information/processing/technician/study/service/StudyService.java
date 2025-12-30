@@ -60,4 +60,12 @@ public class StudyService {
 
         studyNoteRepository.delete(note);
     }
+
+    // 메인 화면용: 최신 글 3개만 조회
+    public List<StudyNoteResponse> findTop3Notes() {
+        return studyNoteRepository.findAllByOrderByCreatedAtDesc().stream()
+                .limit(3) // 3개만 제한
+                .map(StudyNoteResponse::from)
+                .collect(Collectors.toList());
+    }
 }

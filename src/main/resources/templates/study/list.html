@@ -7,7 +7,7 @@
     <style>
         /* 목록 페이지 전용 스타일 */
         .list-container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 100px auto;
             padding: 20px;
         }
@@ -29,26 +29,61 @@
         .btn-write:hover {
             opacity: 0.8;
         }
+
+        /* [수정] a 태그로 변경되면서 스타일 보완 */
         .note-card {
             background-color: var(--card-bg);
             border: 1px solid #333;
-            padding: 20px;
-            margin-bottom: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
             border-radius: 10px;
+
+            /* 높이 고정 및 레이아웃 */
+            height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow: hidden;
+            transition: transform 0.2s, border-color 0.2s;
+
+            /* [추가] 링크 스타일 제거 */
+            text-decoration: none;
+            color: inherit;
+            display: block; /* a 태그는 inline이 기본이라 block으로 변경 */
         }
+
+        .note-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-color);
+        }
+
         .note-meta {
             color: #888;
             font-size: 0.9rem;
             margin-bottom: 10px;
+            flex-shrink: 0;
         }
+
         .note-title {
             font-size: 1.5rem;
             color: #fff;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
+
         .note-content {
             color: #ccc;
-            white-space: pre-wrap; /* 줄바꿈 유지 */
+            line-height: 1.6;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     </style>
 </head>
@@ -70,17 +105,16 @@
         <p>아직 작성된 공부 기록이 없습니다.</p>
     </div>
 
-    <!-- 목록 반복 출력 -->
-    <div th:each="note : ${notes}" class="note-card">
+    <!-- [수정] div -> a 태그로 변경하여 카드 전체 클릭 가능하게 함 -->
+    <a th:each="note : ${notes}" th:href="@{/study/{id}(id=${note.id})}" class="note-card">
         <div class="note-meta">
             <span th:text="${note.category}">카테고리</span> |
             <span th:text="${#temporals.format(note.createdAt, 'yyyy-MM-dd HH:mm')}">날짜</span>
         </div>
-        <h3 class="note-title">
-            <a th:href="@{/study/{id}(id=${note.id})}"  th:text="${note.title}" style="color: $fff; text-decoration: none;">제목</a>
-        </h3>
+        <!-- 제목 안의 a 태그 제거 -->
+        <h3 class="note-title" th:text="${note.title}">제목</h3>
         <p class="note-content" th:text="${note.content}">내용</p>
-    </div>
+    </a>
 
     <div style="margin-top: 30px; text-align: center;">
         <a th:href="@{/}" style="color: #666; text-decoration: none;">← 메인으로 돌아가기</a>

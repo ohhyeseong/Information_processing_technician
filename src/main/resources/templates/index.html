@@ -7,7 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<!-- [추가] 상단 네비게이션 -->
+<!-- 상단 네비게이션 -->
 <nav style="position: fixed; top: 0; width: 100%; padding: 20px; z-index: 100; display: flex; justify-content: flex-end;">
 
     <!-- 로그인 안 했을 때 보임 -->
@@ -62,6 +62,59 @@
         </div>
     </div>
 </section>
+
+<!-- [수정됨] 최신 공부 기록 섹션 -->
+<section class="recent-section" style="padding: 100px 20px; background-color: #0f0f0f; position: relative; z-index: 5;">
+    <div class="container">
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: #fff;">
+            최신 공부 기록 <span style="color: var(--accent-color);">Update</span>
+        </h2>
+
+        <!-- 글이 없을 때 -->
+        <div th:if="${recentNotes == null or recentNotes.isEmpty()}" style="text-align: center; color: #666;">
+            <p>아직 작성된 기록이 없습니다. 첫 글을 작성해보세요!</p>
+        </div>
+
+        <!-- 글이 있을 때 카드 그리드 -->
+        <div class="card-grid">
+            <!-- [수정] div -> a 태그로 변경하여 클릭 시 바로 이동되도록 함 -->
+            <a th:each="note : ${recentNotes}" th:href="@{/study/{id}(id=${note.id})}" class="card" style="text-decoration: none; color: inherit; display: block;">
+                <div style="color: var(--accent-color); font-size: 0.9rem; margin-bottom: 10px;">
+                    <span th:text="${note.category}">카테고리</span>
+                </div>
+                <h3 th:text="${note.title}" style="margin-bottom: 10px;">제목</h3>
+                <p th:text="${note.content}" style="
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        color: #aaa;
+                    ">내용 미리보기</p>
+            </a>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+            <a th:href="@{/study/list}" style="
+                    display: inline-block;
+                    padding: 15px 30px;
+                    border: 1px solid var(--accent-color);
+                    color: var(--accent-color);
+                    text-decoration: none;
+                    border-radius: 30px;
+                    transition: all 0.3s;
+                " onmouseover="this.style.background='var(--accent-color)'; this.style.color='#000'"
+               onmouseout="this.style.background='transparent'; this.style.color='var(--accent-color)'">
+                전체 기록 보러가기 →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- 푸터 -->
+<footer style="padding: 50px 20px; text-align: center; color: #666; border-top: 1px solid #222; position: relative; z-index: 5;">
+    <p>&copy; 2024 Information Processing Technician Study. All rights reserved.</p>
+    <p style="margin-top: 10px; font-size: 0.9rem;">Designed for Deep Dive.</p>
+</footer>
 
 <!-- GSAP & ScrollTrigger CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>

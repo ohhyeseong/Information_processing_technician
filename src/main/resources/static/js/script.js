@@ -27,17 +27,15 @@ gsap.to(".content-section", {
     }
 });
 
-// 3. 카드들이 순차적으로 올라오는 효과
-gsap.from(".card", {
-    y: 50, // 이동 거리를 100에서 50으로 줄여서 부담 완화
+// 3. 최신 글 섹션 등장 효과
+gsap.from(".recent-section h2", {
+    y: 50,
     opacity: 0,
-    duration: 0.8,
-    stagger: 0.2,
+    duration: 1,
     scrollTrigger: {
-        trigger: ".card-grid",
-        start: "top 85%"
-    },
-    clearProps: "transform" // 애니메이션 끝나면 transform 속성 제거 (호버 효과와 충돌 방지)
+        trigger: ".recent-section",
+        start: "top 80%"
+    }
 });
 
 // 4. 스크롤 유도 표시 페이드 아웃 (스크롤 시작하면 사라짐)
