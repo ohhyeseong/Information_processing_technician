@@ -1,18 +1,59 @@
+# 서버 배포용
+#server:
+#  port: ${PORT:8080}
+#
+#spring:
+#  application:
+#    name: demo
+#
+#  datasource:
+#    url: jdbc:mysql://centerbeam.proxy.rlwy.net:33573/railway
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: iXjXleXLKQJELyokHCmVRqDTGVBaFGvo
+#    hikari:
+#      connection-timeout: 30000 # 연결을 얻기 위해 30초까지 기다림
+#      initialization-fail-timeout: 60000
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        dialect: org.hibernate.dialect.MySQLDialect
+#
+#  servlet:
+#    encoding:
+#      charset: UTF-8
+#      enabled: true
+#      force: true
+#
+#  logging:
+#    level:
+#      org.hibernate.SQL: debug
+#      org.hibernate.orm.jdbc.bind: trace
+#
+#  management:
+#    endpoints:
+#      web:
+#        exposure:
+#          include: health
+
+# 내부 서버용
 server:
-  port: ${PORT:8080}
+  port: 8081
 
 spring:
   application:
     name: demo
 
   datasource:
-    url: jdbc:mysql://centerbeam.proxy.rlwy.net:33573/railway
+    url: jdbc:mysql://localhost:3306/study
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: iXjXleXLKQJELyokHCmVRqDTGVBaFGvo
-    hikari:
-      connection-timeout: 30000 # 연결을 얻기 위해 30초까지 기다림
-      initialization-fail-timeout: 60000
+    password: 1234
 
   jpa:
     hibernate:
@@ -21,7 +62,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQLDialect
 
   servlet:
     encoding:
@@ -33,9 +73,3 @@ spring:
     level:
       org.hibernate.SQL: debug
       org.hibernate.orm.jdbc.bind: trace
-
-  management:
-    endpoints:
-      web:
-        exposure:
-          include: health
